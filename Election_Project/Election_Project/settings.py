@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'Election_Project.wsgi.application'
 
 DATABASES = {
     'default': {
-         'ENGINE': 'mssql',       
-        'NAME': 'pollProjectDB',
-        'HOST':'WKST81RZEZMZQJR',
+        'ENGINE': '<put your db engine>',       
+        'NAME': '<put name of the database>',
+        'HOST':'put the name of the server from the connection',
     }
 }
 
