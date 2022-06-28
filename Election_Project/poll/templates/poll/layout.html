@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <!--<div class="iconDiv">
+        <a class="navbar-left" href="/"><img alt="IFB AMPDB" src="{% static 'icons/arcadis-logo-black.svg' %}"></a>
+    </div>-->
+
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="mainNav">
+            <ul class="nav navbar-nav">
+                <li>
+                 <a class="navbar-left"><img alt="IFB AMPDB" src="{% static 'icons/arcadis-logo-black.svg' %}"></a>
+                </li>
+                <li><a class="navbar-brand" href="{% url 'index' %}">ArcVerkiezing </a></li>
+
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'create' %}">Create Poll</a></li>
+                <li class="navbar-right">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div>
+</nav>
+
+    <div class="container">
+        {% block main %}{% endblock %}
+    </div>
+    <!--<div class="container body-content">
+        {% block content %}{% endblock %}
+        <hr />
+        <footer>
+            <p>&copy; {{ year }}  ArcVerkiezing </p>
+        </footer>
+    </div>-->
+<footer>
+    <div class="text-center"> <p>
+    Copyright &copy; {% now 'Y' %}
+    Chamber of Commerce Amsterdam, the Netherlands. Trade Registry no. 09051284 VAT: NL 0062.92.227.B.01
+</p></div>
+</footer>
+<!--Footer Content End-->
+</body>
+</html>

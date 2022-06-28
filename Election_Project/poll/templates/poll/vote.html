@@ -1,0 +1,55 @@
+{% extends "poll/layout.html" %}
+
+{% block title %}Vote{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Choose Your Candidates</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>{{ poll.question }}</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr />
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="poll" value="candidate1" required>
+                                        {{ poll.candidate_one }}
+                                    </label> &nbsp;
+                                    <label>
+                                        <input type="radio" name="poll" value="candidate2">
+                                        {{ poll.candidate_two }}
+                                    </label> &nbsp;
+                                    <label>
+                                        <input type="radio" name="poll" value="candidate3">
+                                        {{ poll.candidate_three }}
+                                    </label> &nbsp;
+                                </div>
+                            </div>
+
+                            <hr />
+                            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
+                                Vote
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
