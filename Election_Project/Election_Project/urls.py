@@ -14,18 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from poll import views as poll_views
-from django.urls import  include
 from django.conf import settings
 from django.conf.urls.static import static
 from ms_identity_web.django.msal_views_and_urls import MsalViews
 
+
 msal_urls = MsalViews(settings.MS_IDENTITY_WEB).url_patterns()
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',poll_views.index,name='index'),
+    path('', poll_views.index, name='index'),
+    path('sign_in_status', poll_views.index, name='status'),
+    path('token_details', poll_views.token_details, name='token_details'),
+    path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)),
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
     path('home/',poll_views.home,name='home'),
     path('create/',poll_views.create,name='create'),
     path('vote/<poll_id>/',poll_views.vote,name='vote'),
@@ -36,3 +41,4 @@ urlpatterns = [
     path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)),
     *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

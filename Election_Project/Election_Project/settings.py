@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,6 +45,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    #'django.middleware.security.SecurityMiddleware',
+    #'django.contrib.sessions.middleware.SessionMiddleware',
+    #'django.middleware.common.CommonMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.contrib.auth.middleware.AuthenticationMiddleware',
+    #'django.contrib.messages.middleware.MessageMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,6 +75,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'poll.context_processors.context',
+
             ],
         },
     },
@@ -138,3 +147,17 @@ MIDDLEWARE.append('ms_identity_web.django.middleware.MsalMiddleware')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'poll/static_collected')
+STATIC_URL = '/static/'
+MEDIA_URL='/images/'
+STATICFILES_DIRS = [
+    BASE_DIR / "poll/static"
+]
+from ms_identity_web.configuration import AADConfig
+from ms_identity_web import IdentityWebPython
+AAD_CONFIG = AADConfig.parse_json(file_path='aad.config.json')
+MS_IDENTITY_WEB = IdentityWebPython(AAD_CONFIG)
+ERROR_TEMPLATE = 'poll/{}.html' # for rendering 401 or other errors from msal_middleware
+MIDDLEWARE.append('ms_identity_web.django.middleware.MsalMiddleware')
+MEDIA_ROOT= os.path.join(BASE_DIR,'static/images/')

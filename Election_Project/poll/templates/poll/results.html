@@ -1,7 +1,7 @@
 {% extends "poll/layout.html" %}
+{%load static%}
 
 {% block title %}Results{% endblock %}
-
 {% block main %}
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
@@ -15,9 +15,18 @@
             </div>
 
             <ul class="list-group">
-                <li class="list-group-item"><strong>{{ poll.candidate_one }}</strong> <i>has vote count: </i>  <strong>{{ poll.candidate_one_count }} </strong></li>
+                <!--<li class="list-group-item"><strong>{{ poll.candidate_one }}</strong> <i>has vote count: </i>  <strong>{{ poll.candidate_one_count }} </strong></li>
                 <li class="list-group-item"><strong>{{ poll.candidate_two }}</strong> <i>has vote count:  </i>  <strong>{{ poll.candidate_two_count }} </strong></li>
-                <li class="list-group-item"><strong>{{ poll.candidate_three }}</strong> <i>has vote count:</i>   <strong>{{ poll.candidate_three_count }} </strong></li>
+                <li class="list-group-item"><strong>{{ poll.candidate_three }}</strong> <i>has vote count:</i>   <strong>{{ poll.candidate_three_count }} </strong></li>-->
+                {% for choice in poll.choice_set.all %}
+
+                <li class="list-group-item">
+                    <strong>
+                        {{ choice.choice_text }} : got <strong> {{ choice.votes }}</strong>
+                        vote{{ choice.votes|pluralize }}
+                    </strong>
+                </li>
+                {% endfor %}
             </ul>
 
             <div class="panel-footer">

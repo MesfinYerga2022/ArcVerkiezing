@@ -1,13 +1,9 @@
+from contextvars import Context
 from http.client import HTTPResponse
+from operator import concat
 from django.shortcuts import render, redirect
 from .forms import CreatePollForm
 from .models import Poll
-from django.conf import settings
-import requests
-from django.views.decorators import csrf
-from django.views.decorators.csrf import csrf_protect
-
-ms_identity_web = settings.MS_IDENTITY_WEB
 
 def index(request):
     polls =  Poll.objects.all()
@@ -15,12 +11,28 @@ def index(request):
         'polls': polls
      }
     return render(request,'poll/index.html',context)
+
+@ms_identity_web.login_required
+def token_details(request):
+    return render(request, 'poll/token.html')
+
+@ms_identity_web.login_required
 def home(request):
+    ms_identity_web.acquire_token_silently()
+    graph = 'https://graph.microsoft.com/v1.0/users'
+    authZ = f'Bearer {ms_identity_web.id_data._access_token}'
+    results = requests.get(graph, headers={'Authorization': authZ}).json()
     polls =  Poll.objects.all()
+    context_object_name = 'latest_question_list'
+
     context={
         'polls': polls
      }
+    if 'value' in results:
+        results ['num_results'] = len(results['value'])
+        results['value'] = results['value'][:5]
     return render(request,'poll/home.html',context)
+@ms_identity_web.login_required 
 def create(request):
     if request.method =='POST':
         form = CreatePollForm(request.POST)
@@ -33,25 +45,99 @@ def create(request):
         'form': form
     }
     return render(request,'poll/create.html',context)
-def vote(request, poll_id):
-    poll = Poll.objects.get(pk=poll_id)
 
-    if request.method == 'POST':
-         selected_option = request.POST['poll']
-         if selected_option=='candidate1':
-             poll.candidate_one_count +=1
-         elif selected_option=='candidate2':
-             poll.candidate_two_count +=1
-         elif  selected_option=='candidate3':
-             poll.candidate_three_count +=1
-         else:
-            return HTTPResponse(400,'Invalid form')
-         poll.save()
+
+    #poll = Poll.objects.get(pk=poll_id)
+    ##voters = [user.id for user in Voter.objects.filter(poll__id=poll_id)]
+    #try:
+    #    selected_choice = poll.choice_set.get(pk=request.POST['choice'])
+       
+    #except (KeyError, Choice.DoesNotExist):
+    #    return render(request, 'poll/vote.html', {
+    #        'poll': poll,
+    #        #'error_message': "You didn't select a choice.",
+    #    })
+    #else:
+    #    ##context = {
+    #    ##'poll' : poll,
+    #    ##            'error_message': "You didn't select a choice.",
+
+    #    ##}
+
+    #    selected_choice.votes += 1
+    #    selected_choice.save()
+    ##if request.method == 'POST':
+    ##    #if request.user.id in voters:
+    ##     selected_choice = request.POST['poll']
+    ##     selected_choice.votes += 1
+    ##     selected_choice.save()
+    ##else:
+    ##    return HTTPResponse(400,'Invalid form')
+    ##    poll.save()
+    ##    return redirect('results',poll.id)
+   
+    #    return redirect('results',poll.id)
+
+    #back up
+    # poll = Poll.objects.get(pk=poll_id)
+    #try:
+    #    selected_choice = poll.choice_set.get(pk=request.POST['choice'])
+    #    if selected_choice==poll.candidate:
+    #        poll.candidate_count +=1
+
+       
+    #except (KeyError, Choice.DoesNotExist):
+    #    return render(request, 'poll/vote.html', {
+    #        'poll': poll,
+    #    })
+    #else:
+    #     selected_choice.votes += 1
+    #     poll.candidate_count +=1
+    #     selected_choice.save()
+
+    #     return redirect('results',poll.id)
+
+    #end back up
+
+def vote(request, poll_id):
+       #poll = Poll.objects.get(pk=poll_id)
+       #if request.method == 'POST':
+       #     selected_option=request.POST['poll']
+       #     if selected_option==poll.candidate:
+       #      poll.candidate_count +=1
+       #     #else:
+       #     #     return HTTPResponse(400, 'invalid form')
+       #     poll.save()
+       #     return redirect('results',poll.id)
+
+       #context = {
+       #    'poll': poll
+       # }
+    
+       #return render(request, 'poll/vote.html',context) 
+    
+     poll = Poll.objects.get(pk=poll_id)
+    try:
+        selected_choice = poll.choice_set.get(pk=request.POST['choice'])
+        if selected_choice==poll.candidate:
+            poll.candidate_count +=1
+
+       
+    except (KeyError, Choice.DoesNotExist):
+        return render(request, 'poll/vote.html', {
+            'poll': poll,
+        })
+    else:
+         selected_choice.votes += 1
+         poll.candidate_count +=1
+         selected_choice.save()
+
          return redirect('results',poll.id)
-    context = {
-        'poll' : poll
-    }
-    return render(request,'poll/vote.html',context)
+
+
+
+
+
 def results(request, poll_id):
     poll=Poll.objects.get(pk=poll_id)
     context={

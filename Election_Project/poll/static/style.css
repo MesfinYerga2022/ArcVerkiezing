@@ -8,6 +8,7 @@
 }
 .form-control {
     border-radius: 0;
+    width: auto;
 }
 .btn {
     background-color: #e4610f;
@@ -63,5 +64,12 @@ a.navbar-brand, .panel-title {
     margin-top: 10px;
 }
 .mainNav {
-    background-color: white;
+    width:inherit
+}
+.img-circle {
+    border-radius: 50%;
+}
+.body-content {
+    height:fit-content;
+    width: auto
 }

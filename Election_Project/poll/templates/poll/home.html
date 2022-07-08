@@ -15,8 +15,8 @@
                 <li class="list-group-item">
                     <strong>{{ poll.question }}</strong>
                     <span class="pull-right">
-                        <a href="{% url 'vote' poll.id %}" class="btn btn-outline-success my-2 my-sm-0">Vote</a> &nbsp;
-                        <a href="{% url 'results' poll.id %}" class="btn btn-outline-success my-2 my-sm-0">Results</a> &nbsp;
+                        <a href="{% url 'vote' poll.id %}" class="form-control btn btn-outline-success my-2 my-sm-0">Vote</a> &nbsp;
+                        <a href="{% url 'results' poll.id %}" class="form-control btn btn-outline-success my-2 my-sm-0">Results</a> &nbsp;
                     </span>
                 </li>
                 {% endfor %}

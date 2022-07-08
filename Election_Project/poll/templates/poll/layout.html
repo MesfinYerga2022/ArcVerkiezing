@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
@@ -34,39 +37,50 @@
         <div class="mainNav">
             <ul class="nav navbar-nav">
                 <li>
-                 <a class="navbar-left"><img alt="IFB AMPDB" src="{% static 'icons/arcadis-logo-black.svg' %}"></a>
+                    <a class="navbar-left"><img alt="IFB AMPDB" src="{% static 'icons/arcadis-logo-black.svg' %}"></a>
                 </li>
                 <li><a class="navbar-brand" href="{% url 'index' %}">ArcVerkiezing </a></li>
-
-                <li><a href="{% url 'home' %}">Home</a></li>
+                {% for message in messages %}
+                <div class="alert alert-info">{{message}}</div>
+                {% endfor %}
+                <li><a href="{% url 'home' %}">Polling</a></li>
                 <li><a href="{% url 'create' %}">Create Poll</a></li>
                 <li class="navbar-right">
                     <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control mr-sm-2"  type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </li>
-            </ul>
+
+            </ul>   
+            <ui list-style-type: none; class="navbar-right">
+
+                <div class="btn-group ml-auto dropleft">
+                    {% include "../poll/auth-bar-items.html" %}
+                </div>
+            </ui>
         </div><!-- /.navbar-collapse -->
     </div>
 </nav>
 
-    <div class="container">
-        {% block main %}{% endblock %}
-    </div>
-    <!--<div class="container body-content">
-        {% block content %}{% endblock %}
-        <hr />
-        <footer>
-            <p>&copy; {{ year }}  ArcVerkiezing </p>
-        </footer>
-    </div>-->
+<div class="container">
+    {% block main %}{% endblock %}
+</div>
+<!--<div class="container body-content">
+    {% block content %}{% endblock %}
+    <hr />
+    <footer>
+        <p>&copy; {{ year }}  ArcVerkiezing </p>
+    </footer>
+</div>-->
 <footer>
     <div class="text-center"> <p>
-    Copyright &copy; {% now 'Y' %}
-    Chamber of Commerce Amsterdam, the Netherlands. Trade Registry no. 09051284 VAT: NL 0062.92.227.B.01
-</p></div>
+        Copyright &copy; {% now 'Y' %}
+        Chamber of Commerce Amsterdam, the Netherlands. Trade Registry no. 09051284 VAT: NL 0062.92.227.B.01
+    </p></div>
 </footer>
 <!--Footer Content End-->
+
 </body>
+
 </html>
