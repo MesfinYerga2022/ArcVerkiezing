@@ -16,8 +16,8 @@
 
             <ul class="list-group">
                 <!--<li class="list-group-item"><strong>{{ poll.candidate_one }}</strong> <i>has vote count: </i>  <strong>{{ poll.candidate_one_count }} </strong></li>
-                <li class="list-group-item"><strong>{{ poll.candidate_two }}</strong> <i>has vote count:  </i>  <strong>{{ poll.candidate_two_count }} </strong></li>
-                <li class="list-group-item"><strong>{{ poll.candidate_three }}</strong> <i>has vote count:</i>   <strong>{{ poll.candidate_three_count }} </strong></li>-->
+        <li class="list-group-item"><strong>{{ poll.candidate_two }}</strong> <i>has vote count:  </i>  <strong>{{ poll.candidate_two_count }} </strong></li>
+        <li class="list-group-item"><strong>{{ poll.candidate_three }}</strong> <i>has vote count:</i>   <strong>{{ poll.candidate_three_count }} </strong></li>-->
                 {% for choice in poll.choice_set.all %}
 
                 <li class="list-group-item">
@@ -28,11 +28,10 @@
                 </li>
                 {% endfor %}
             </ul>
-
+            <a class="btn btn-secondary" href="{% url 'index' %}">Back To Polls</a>
             <div class="panel-footer">
-                Total Number of Voters:  <strong>{{ poll.total }}</strong>
+                Total Number of Voters:  <strong>{{ poll.total_votes}}</strong>
             </div>
-
         </div>
     </div>
 </div>

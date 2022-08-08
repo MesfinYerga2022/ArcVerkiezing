@@ -44,10 +44,11 @@
                 <div class="alert alert-info">{{message}}</div>
                 {% endfor %}
                 <li><a href="{% url 'home' %}">Polling</a></li>
-                <li><a href="{% url 'create' %}">Create Poll</a></li>
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+
                 <li class="navbar-right">
                     <form class="form-inline">
-                        <input class="form-control mr-sm-2"  type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </li>

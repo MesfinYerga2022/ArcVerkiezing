@@ -25,33 +25,20 @@
                         <form method="POST">
                             {% csrf_token %}
                             <div class="form-group">
-                                <!--<div class="radio">
-                                    <label>
-                                        <input type="radio" name="poll" value="candidate1" required>
-                                       / {{ poll.candidate_one }}
-                                    </label> &nbsp;
-                                    <label>
-                                        <input type="radio" name="poll" value="candidate2">
-                                        {{ poll.candidate_two }}
-                                    </label> &nbsp;
-                                    <label>
-                                        <input type="radio" name="poll" value="candidate3">
-                                        {{ poll.candidate_three }}
-                                    </label> &nbsp;
-                                </div>-->
+                           
                                 <fieldset>
                                     <!--<legend>
                                         <h1>{{ poll.question }}</h1>
                                     </legend>-->
-                                    {% if error_message %}
+                                    <!--{% if error_message %}
                                     <p>
                                         <strong>{{ error_message }}</strong>
-                                    </p>{% endif %}
+                                    </p>{% endif %}-->
                                     {% for choice in poll.choice_set.all %}
                                     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
                                     <label for="choice{{ forloop.counter }}">
                                         <div class="">
-                                            <img class="" src="{{request.user.choice.profile_pic.url }}">
+                                            <!--<img class="" src="{{request.user.choice.profile_pic.url }}">-->
 
                                             <!--<img class="" src="{{choice.profile_pic}}">--> 
                                             {{ choice.choice_text }}
@@ -63,6 +50,10 @@
                             </div>
 
                             <hr />
+                               {% if error_message %}
+                                    <p>
+                                        <strong>{{ error_message }}</strong>
+                                    </p>{% endif %}
                             <button type="submit" value="Vote" class="btn btn-outline-success my-2 my-sm-0">
                                 Vote
                             </button>

@@ -4,11 +4,11 @@
         "authority_type": "SINGLE_TENANT",
         "framework": "DJANGO"
     },
-    "client": {
-        "client_id": "{enter-your-client-id-here}",
-        "client_credential": "{enter-your-client-secret-here}",
-        "authority": "https://login.microsoftonline.com/{enter-your-tenant-id-here}"
-    },
+  "client": {
+    "client_id": "a675cba7-5bf6-4b51-8ee8-3ed33a43205d",
+    "client_credential": "61W8Q~E2emKDvOUK-5xnI1-Ap2KB8DriEaRGpdgb",
+    "authority": "https://login.microsoftonline.com/{7f90057d-3ea0-46fe-b07c-e0568627081b}"
+  },
     "auth_request": {
         "redirect_uri": null,
         "scopes": [],

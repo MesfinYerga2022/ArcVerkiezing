@@ -26,12 +26,7 @@ msal_urls = MsalViews(settings.MS_IDENTITY_WEB).url_patterns()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', poll_views.index, name='index'),
-    path('sign_in_status', poll_views.index, name='status'),
-    path('token_details', poll_views.token_details, name='token_details'),
-    path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)),
-    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
-    path('home/',poll_views.home,name='home'),
+    path('',poll_views.home,name='home'),
     path('create/',poll_views.create,name='create'),
     path('vote/<poll_id>/',poll_views.vote,name='vote'),
     path('results/<poll_id>/',poll_views.results,name='results'),
@@ -40,5 +35,7 @@ urlpatterns = [
     path('token_details', poll_views.token_details, name='token_details'),
     path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)),
     *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
