@@ -38,12 +38,12 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
     description_text = models.CharField(max_length=2000,default="")
-    candidate_count = models.IntegerField(default=0)
+    #candidate_count = models.IntegerField(default=0)
 
     #candidate_image = models.ImageField(upload_to='static/images', null=True,blank=True,default="")
     profile_pic = models.ImageField(default="profile1.png", null=True, blank=True)
-    def total(self):
-        return  self.candidate_count
+    #def total(self):
+    #    return  self.candidate_count
 
     def __str__(self):
         return self.choice_text
