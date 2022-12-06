@@ -131,11 +131,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'poll/static_collected')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "poll/static"
-]
+#STATIC_ROOT = os.path.join(BASE_DIR, 'poll/static_collected')
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS = [
+#    BASE_DIR / "poll/static"
+#]
 
 from ms_identity_web.configuration import AADConfig
 from ms_identity_web import IdentityWebPython

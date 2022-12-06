@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import CreatePollForm
 from .models import Poll, Choice, Voter
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 ms_identity_web = settings.MS_IDENTITY_WEB
 import requests

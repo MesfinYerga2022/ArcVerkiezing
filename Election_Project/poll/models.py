@@ -41,7 +41,7 @@ class Choice(models.Model):
     #candidate_count = models.IntegerField(default=0)
 
     #candidate_image = models.ImageField(upload_to='static/images', null=True,blank=True,default="")
-    profile_pic = models.ImageField(default="profile1.png", null=True, blank=True)
+    profile_pic = models.ImageField(upload_to='images/static/images', default="profile1.png", null=True, blank=True)
     #def total(self):
     #    return  self.candidate_count
 
